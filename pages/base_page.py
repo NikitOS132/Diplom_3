@@ -83,3 +83,23 @@ class BasePage:
     def click_via_js(self, locator):
         element = self.driver.find_element(*locator)
         self.driver.execute_script("arguments[0].click();", element)
+
+    @allure.step('Подождать прогрузки сайта')
+    def wait_url_to_be(self, expected_url: str, timeout: int = 6):
+        WebDriverWait(self.driver, timeout).until(EC.url_to_be(expected_url))
+
+    @allure.step('Получение первого значения счётчика "За все время"')
+    def get_at_all_time_value(self, locator):
+        element = self.driver.find_element(*locator)
+        text = element.text.strip()
+        import re
+        numbers = re.findall(r'\d+', text)
+        return int(numbers[0])
+    
+    @allure.step('Получение первого значения счётчика "За сегодня"')
+    def get_at_today_value(self, locator):
+        element = self.driver.find_element(*locator)
+        text = element.text.strip()
+        import re
+        numbers = re.findall(r'\d+', text)
+        return int(numbers[0])

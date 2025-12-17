@@ -15,3 +15,10 @@ def driver(request):
         driver.get(main_site)
     yield driver
     driver.quit()
+
+@pytest.fixture
+def test_credentials():
+    return {
+    "email": "gordy82@yandex.ru",
+    "password": "5h235jq1!"
+    }

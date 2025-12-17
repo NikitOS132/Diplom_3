@@ -116,3 +116,9 @@ class MainPage(BasePage):
     @allure.step('Кликнуть по кнопке закрытия информации о готовом заказе на основной странице')
     def click_on_ready_order_info_exit_button(self):
         self.click_via_js(MainPageLocators.exit_ready_order_info)
+
+    @allure.step('Открыть страницу заказов')
+    def open_order_feed(self, feed_url: str):
+        self.wait_visibility_of_order_list_button()
+        self.click_on_order_list_button()
+        self.wait_url_to_be(feed_url)

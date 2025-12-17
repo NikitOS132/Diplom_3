@@ -34,3 +34,29 @@ class OrderFeedPage(BasePage):
     @allure.step('Подождать прогрузки отображения счетчика "Выполнено за сегодня"')
     def wait_visibility_of_today_meter(self):
         self.wait_visibility_of_element(OrderFeedPageLocators.at_today)
+
+    @allure.step('Открыть главную страницу')
+    def open_constructor_feed(self, main_url: str):
+        self.wait_visibility_of_constructor_button()
+        self.click_on_constructor_button()
+        self.wait_url_to_be(main_url)
+
+    @allure.step('Получение текущего значения счётчика "За все время" в ленте заказов')
+    def get_current_at_all_time_value(self):
+        return self.get_at_all_time_value(OrderFeedPageLocators.at_all_time)
+    
+    @allure.step('Получение текущего значения счётчика "За сегодня" в ленте заказов')
+    def get_current_at_today_value(self):
+        return self.get_at_today_value(OrderFeedPageLocators.at_today)
+
+    @allure.step('Ожидание обновления счётчика "За все время"')
+    def wait_for_at_all_time_update(self, locator, timeout=30):
+        initial_value = self.get_at_all_time_value(locator)
+        current_value = self.get_at_all_time_value(locator)
+        return current_value
+    
+    @allure.step('Ожидание обновления счётчика "За сегодня"')
+    def wait_for_at_today_update(self, locator, timeout=30):
+        initial_value = self.get_at_today_value(locator)
+        current_value = self.get_at_today_value(locator)
+        return current_value
